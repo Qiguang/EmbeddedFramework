@@ -1,0 +1,99 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+APP_EVT_COUNT	events.h	/^    APP_EVT_COUNT$/;"	e	enum:__anon3
+APP_EVT_START	events.h	/^    APP_EVT_START = EVT_COUNT,$/;"	e	enum:__anon3
+APP_EVT_TASK1_TIMEOUT	events.h	/^    APP_EVT_TASK1_TIMEOUT,$/;"	e	enum:__anon3
+ApplicationEvents	events.h	/^} ApplicationEvents;$/;"	t	typeref:enum:__anon3
+BSP_H	Win32\bsp.h	2;"	d
+DEFINE_TASK	taskEngine.h	16;"	d
+DEFINE_TASK	taskEngine.h	20;"	d
+ENTER_CRITICAL_SESSION	Win32\bsp.c	/^void ENTER_CRITICAL_SESSION()$/;"	f
+EVENTFRAMEWORK_H	EventFramework.h	2;"	d
+EVENTQ_H	eventQ.h	2;"	d
+EVENTS_H	events.h	2;"	d
+EVENT_Q_SIZE	frameworkConfig.h	3;"	d
+EVT_COUNT	events.h	/^    EVT_COUNT$/;"	e	enum:__anon2
+EVT_ENTER	events.h	/^    EVT_ENTER,$/;"	e	enum:__anon2
+EVT_INIT	events.h	/^    EVT_INIT = 0,$/;"	e	enum:__anon2
+EVT_QUIT	events.h	/^    EVT_QUIT,$/;"	e	enum:__anon2
+EVT_TIMEOUT	events.h	/^    EVT_TIMEOUT,$/;"	e	enum:__anon2
+EVT_TIME_TICK	events.h	/^    EVT_TIME_TICK,$/;"	e	enum:__anon2
+EXIT_CRITICAL_SESSION	Win32\bsp.c	/^void EXIT_CRITICAL_SESSION()$/;"	f
+Event	events.h	/^}Event;$/;"	t	typeref:union:__anon6
+EventToken	events.h	/^} EventToken;$/;"	t	typeref:struct:__anon4
+EventType	events.h	25;"	d
+FRAMEWORKCONFIG_H	frameworkConfig.h	2;"	d
+FrameworkEvents	events.h	/^} FrameworkEvents;$/;"	t	typeref:enum:__anon2
+GeneralEvent	events.h	/^}GeneralEvent;$/;"	t	typeref:struct:__anon5
+LOG_H	log.h	2;"	d
+QUEUE_H	Queue.h	2;"	d
+Queue	Queue.h	/^}Queue;$/;"	t	typeref:struct:__anon7
+StateProc	taskEngine.h	/^typedef void* (* StateProc)(Event* event);$/;"	t
+TASKENGINE_H	taskEngine.h	2;"	d
+TIMER_H	timer.h	2;"	d
+TYPES_H	types.h	2;"	d
+Task	taskEngine.h	/^}Task;$/;"	t	typeref:struct:Task_t
+Task_t	taskEngine.h	/^typedef struct Task_t{$/;"	s
+Tasks	EventFramework.h	/^} Tasks;$/;"	t	typeref:struct:__anon1
+TimeTickCallback	Win32\bsp.h	/^typedef void (*TimeTickCallback)();$/;"	t
+bool	types.h	/^typedef uint8_t bool;$/;"	t
+buffer	Queue.h	/^    uint8_t* buffer;$/;"	m	struct:__anon7
+count	EventFramework.h	/^    uint8_t count;$/;"	m	struct:__anon1
+criticalSection	Win32\bsp.c	/^CRITICAL_SECTION criticalSection;$/;"	v
+deliverEvent	EventFramework.c	/^bool deliverEvent(Task* task, Event* event)$/;"	f
+dispatchEvent	EventFramework.c	/^void dispatchEvent(Event* event)$/;"	f
+elementCount	Queue.h	/^    uint8_t elementCount;$/;"	m	struct:__anon7
+elementSize	Queue.h	/^    uint8_t elementSize;$/;"	m	struct:__anon7
+eventQ	eventQ.c	/^Queue eventQ;$/;"	v
+eventQBuffer	eventQ.c	/^Event eventQBuffer[EVENT_Q_SIZE];$/;"	v
+eventSubscribeTable	taskEngine.h	/^    uint8_t eventSubscribeTable[(APP_EVT_COUNT+7)\/8];$/;"	m	struct:Task_t
+false	types.h	6;"	d
+generalEvt	events.h	/^    GeneralEvent generalEvt;$/;"	m	union:__anon6
+getElement	Queue.c	/^bool getElement(Queue* q, void* elementBuf)$/;"	f
+getEvent	eventQ.c	/^bool getEvent(Event* eventBuf)$/;"	f
+getEventTarget	eventQ.c	/^Task* getEventTarget(const Event* event)$/;"	f
+getEventType	eventQ.c	/^uint8_t getEventType(const Event* event)$/;"	f
+getTasks	EventFramework.c	/^Tasks* getTasks()$/;"	f
+head	Queue.h	/^    uint8_t head;$/;"	m	struct:__anon7
+initBsp	Win32\bsp.c	/^void initBsp()$/;"	f
+initEvent	eventQ.c	/^Event initEvent(ApplicationEvents eventType)$/;"	f
+initEventQ	eventQ.c	/^void initEventQ()$/;"	f
+initEventTarget	eventQ.c	/^Event initEventTarget(uint8_t eventType, Task* target)$/;"	f
+initFramework	EventFramework.c	/^void initFramework()$/;"	f
+initQ	Queue.c	/^Queue initQ(void* bufferPointer, uint8_t queueSize, uint8_t elementSize)$/;"	f
+initTasks	EventFramework.c	/^void initTasks()$/;"	f
+initTimer	timer.c	/^void initTimer()$/;"	f
+log_err	log.h	3;"	d
+null	types.h	12;"	d
+onIdle	Win32\bsp.c	/^void onIdle()$/;"	f
+previousState	taskEngine.h	/^    StateProc previousState;$/;"	m	struct:Task_t
+putElement	Queue.c	/^bool putElement(Queue* q, const void* element)$/;"	f
+putEvent	eventQ.c	/^bool putEvent(const Event* event) $/;"	f
+qSize	Queue.h	/^    uint8_t qSize;$/;"	m	struct:__anon7
+resumeEvent	Win32\bsp.c	/^HANDLE resumeEvent;$/;"	v
+run	EventFramework.c	/^void run()$/;"	f
+setTaskTickCount	timer.c	/^void setTaskTickCount(Task* task, uint16_t tickCount)$/;"	f
+setTimeTickCallback	Win32\bsp.c	/^void setTimeTickCallback(TimeTickCallback callback)$/;"	f
+setTimeTickPerSec	Win32\bsp.c	/^void setTimeTickPerSec(uint16_t countPerSec)$/;"	f
+state	taskEngine.h	/^    StateProc state;$/;"	m	struct:Task_t
+subscribeEvent	taskEngine.c	/^void subscribeEvent(Task* task, EventType eventType)$/;"	f
+tail	Queue.h	/^    uint8_t tail;$/;"	m	struct:__anon7
+target	events.h	/^    struct Task_t* target;$/;"	m	struct:__anon4	typeref:struct:__anon4::Task_t
+taskList	EventFramework.c	/^Task* taskList[] = {&task1, &task2};$/;"	v
+tasks	EventFramework.c	/^Tasks tasks = {taskList, sizeof(taskList)\/sizeof(taskList[0])};$/;"	v
+tasks	EventFramework.h	/^    Task** tasks;$/;"	m	struct:__anon1
+tickCountDown	timer.c	/^void tickCountDown(Task* task)$/;"	f
+timeTickCallback	Win32\bsp.c	/^TimeTickCallback timeTickCallback;$/;"	v
+timeTickCallback	timer.c	/^void timeTickCallback()$/;"	f
+timeTickCount	taskEngine.h	/^    uint16_t timeTickCount;$/;"	m	struct:Task_t
+timeTickCountPerSec	Win32\bsp.c	/^uint16_t timeTickCountPerSec = 100U;$/;"	v
+timeTickCountSec	taskEngine.h	/^    uint16_t timeTickCountSec;$/;"	m	struct:Task_t
+timeTickService	Win32\bsp.c	/^DWORD WINAPI timeTickService(_In_ LPVOID lpParameter)$/;"	f
+token	events.h	/^    EventToken token;$/;"	m	struct:__anon5
+true	types.h	9;"	d
+type	events.h	/^    EventType type;$/;"	m	struct:__anon4
+unsubscribeEvent	taskEngine.c	/^void unsubscribeEvent(Task* task, EventType eventType)$/;"	f

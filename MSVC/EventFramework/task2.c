@@ -3,6 +3,7 @@
 #include "events.h"
 #include "eventQ.h"
 #include "timer.h"
+#include "task2.h"
 static void* init(Event* event);
 static void* proc(Event* event);
 DEFINE_TASK(task2, init);

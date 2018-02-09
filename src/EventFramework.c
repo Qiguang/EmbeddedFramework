@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include "Queue.h"
-#include "Win32/bsp.h"
+#include "bsp/Win32/bsp.h"
 #include "log.h"
 #include "events.h"
 #include "frameworkConfig.h"
@@ -8,8 +8,8 @@
 #include "types.h"
 #include "eventQ.h"
 #include "timer.h"
-#include "../task1.h"
-#include "../task2.h"
+#include "task1.h"
+#include "task2.h"
 #include "EventFramework.h"
 void dispatchEvent(Event* event);
 void initTasks();

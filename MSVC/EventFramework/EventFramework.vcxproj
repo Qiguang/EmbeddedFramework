@@ -52,7 +52,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Robin\Documents\Projects\EventFramework\EventFramework\EventFramework;C:\Users\Robin\Documents\Projects\EventFramework\EventFramework\EventFramework\Win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\EventFramework\;$(SolutionDir)\..\src;$(SolutionDir)\..\src\bsp\Win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -80,34 +80,37 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EventFramework\EventFramework.h" />
-    <ClInclude Include="EventFramework\eventQ.h" />
-    <ClInclude Include="EventFramework\events.h" />
-    <ClInclude Include="EventFramework\eventSubscribers.h" />
-    <ClInclude Include="EventFramework\frameworkConfig.h" />
-    <ClInclude Include="EventFramework\log.h" />
-    <ClInclude Include="EventFramework\Queue.h" />
-    <ClInclude Include="EventFramework\taskEngine.h" />
-    <ClInclude Include="EventFramework\timer.h" />
-    <ClInclude Include="EventFramework\types.h" />
-    <ClInclude Include="EventFramework\Win32\bsp.h" />
+    <ClInclude Include="..\..\src\bsp\Win32\bsp.h" />
+    <ClInclude Include="..\..\src\EventFramework.h" />
+    <ClInclude Include="..\..\src\eventQ.h" />
+    <ClInclude Include="..\..\src\events.h" />
+    <ClInclude Include="..\..\src\eventSubscribers.h" />
+    <ClInclude Include="..\..\src\frameworkConfig.h" />
+    <ClInclude Include="..\..\src\log.h" />
+    <ClInclude Include="..\..\src\Queue.h" />
+    <ClInclude Include="..\..\src\taskEngine.h" />
+    <ClInclude Include="..\..\src\timer.h" />
+    <ClInclude Include="..\..\src\types.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="task1.h" />
     <ClInclude Include="task2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\bsp\Win32\bsp.c" />
+    <ClCompile Include="..\..\src\EventFramework.c" />
+    <ClCompile Include="..\..\src\eventQ.c" />
+    <ClCompile Include="..\..\src\log.c" />
+    <ClCompile Include="..\..\src\Queue.c" />
+    <ClCompile Include="..\..\src\taskEngine.c" />
+    <ClCompile Include="..\..\src\timer.c" />
     <ClCompile Include="EventFrameworkMain.cpp" />
-    <ClCompile Include="EventFramework\EventFramework.c" />
-    <ClCompile Include="EventFramework\eventQ.c" />
-    <ClCompile Include="EventFramework\log.c" />
-    <ClCompile Include="EventFramework\Queue.c" />
-    <ClCompile Include="EventFramework\taskEngine.c" />
-    <ClCompile Include="EventFramework\timer.c" />
-    <ClCompile Include="EventFramework\Win32\bsp.c" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="task1.c" />
     <ClCompile Include="task2.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\tags" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
