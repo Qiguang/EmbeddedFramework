@@ -50,9 +50,9 @@ void run()
 void dispatchEvent(Event* event)
 {
     int i;
-    Task* taskTarget = Event_getTarget(event);
-    if (taskTarget != null) {
-        deliverEvent(taskTarget, event);
+    Task* eventTarget = Event_getTarget(event);
+    if (eventTarget != null) {
+        deliverEvent(eventTarget, event);
     } else {
         for (i = 0; i < sizeof(taskList)/sizeof(taskList[0]); ++i) {
             Task* task = taskList[i];

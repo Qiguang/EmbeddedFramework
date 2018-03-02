@@ -7,8 +7,8 @@
  */
 typedef enum { 
     SYSEVT_INIT = 0,
-    SYSEVT_ENTER,
-    SYSEVT_QUIT,
+    SYSEVT_ENTER, // enter the state
+    SYSEVT_QUIT,  // quit the state
     SYSEVT_TIMETICK,
     SYSEVT_TIMEOUT,
     SYSEVT_COUNT

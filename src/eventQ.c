@@ -4,8 +4,8 @@
 #include "taskEngine.h"
 #include "./bsp/bsp.h"
 
-Event eventQBuffer[EVENT_Q_SIZE];
-Queue eventQ;
+static Event eventQBuffer[EVENT_Q_SIZE];
+static Queue eventQ;
 Event Event_init(AppEvent eventType);
 
 void Event_initQ()
