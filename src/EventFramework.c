@@ -21,21 +21,21 @@ Tasks* getTasks()
 {
     return &tasks;
 }
-void initFramework()
+void Framework_init()
 {
     Event_initQ();
     initTasks();
-    initTimer();
+    Timer_init();
     
-    initBsp();
+    Bsp_init();
 }
 void initTasks()
 {
     int i;
     for (i = 0; i < sizeof(taskList)/sizeof(taskList[0]); ++i) {
-        subscribeEvent(taskList[i], EVT_INIT);
-        subscribeEvent(taskList[i], EVT_ENTER);
-        subscribeEvent(taskList[i], EVT_QUIT);
+        subscribeEvent(taskList[i], SYS_EVT_INIT);
+        subscribeEvent(taskList[i], SYS_EVT_ENTER);
+        subscribeEvent(taskList[i], SYS_EVT_QUIT);
     }
 }
 void run()
@@ -44,7 +44,7 @@ void run()
    if (Event_get(&event)) {
       dispatchEvent(&event); 
    } else {
-      onIdle();
+      Bsp_onIdle();
    }
 }
 void dispatchEvent(Event* event)
@@ -72,9 +72,9 @@ bool deliverEvent(Task* task, Event* event)
             task->state = nextState;
 
             Event event;
-            event = Event_init(EVT_QUIT);
+            event = Event_init(SYS_EVT_QUIT);
             task->previousState(&event);
-            event = Event_init(EVT_ENTER);
+            event = Event_init(SYS_EVT_ENTER);
             task->state(&event);
         }
     } else {

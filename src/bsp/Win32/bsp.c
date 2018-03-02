@@ -10,14 +10,14 @@ void setTimeTickPerSec(uint16_t countPerSec)
     timeTickCountPerSec = countPerSec;
 }
 HANDLE resumeEvent;
-void initBsp()
+void Bsp_init()
 {
     InitializeCriticalSection(&criticalSection);
     resumeEvent = CreateEvent(NULL, FALSE, FALSE, TEXT("ResumeEvent"));
     // TODO: don't forget CloseHandle(resumeEvent) when exit
     CreateThread(NULL, 0, timeTickService, NULL, 0, NULL);
 }
-void onIdle()
+void Bsp_onIdle()
 {
     WaitForSingleObject(resumeEvent, INFINITE);
 }

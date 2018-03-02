@@ -1,27 +1,27 @@
 #ifndef EVENTS_H
 #define EVENTS_H
 #include <stdint.h>
-/*! \enum  FrameworkEvents
+/*! \enum  SysEvent
  *
  *  events generated from this framework
  */
 typedef enum { 
-    EVT_INIT = 0,
-    EVT_ENTER,
-    EVT_QUIT,
-    EVT_TIME_TICK,
-    EVT_TIMEOUT,
-    EVT_COUNT
-} FrameworkEvents;
-/*! \enum ApplicationEvents
+    SYS_EVT_INIT = 0,
+    SYS_EVT_ENTER,
+    SYS_EVT_QUIT,
+    SYS_EVT_TIMETICK,
+    SYS_EVT_TIMEOUT,
+    SYS_EVT_COUNT
+} SysEvent;
+/*! \enum AppEvent
  *
  *  Detailed description
  */
 typedef enum {
-    APP_EVT_START = EVT_COUNT,
+    APP_EVT_START = SYS_EVT_COUNT,
     APP_EVT_TASK1_TIMEOUT,
     APP_EVT_COUNT
-} ApplicationEvents;
+} AppEvent;
 #define EventType uint8_t
 typedef struct {
     EventType type;

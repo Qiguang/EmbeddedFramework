@@ -6,13 +6,12 @@
 
 Event eventQBuffer[EVENT_Q_SIZE];
 Queue eventQ;
-Event Event_init(ApplicationEvents eventType);
+Event Event_init(AppEvent eventType);
 
 void Event_initQ()
 {
     eventQ = Q_init(eventQBuffer, sizeof(eventQBuffer)/sizeof(eventQBuffer[0]), sizeof(eventQBuffer[0]));
-    Event event = Event_init(EVT_INIT);
-    event.generalEvt.token.type = EVT_INIT;
+    Event event = Event_init(SYS_EVT_INIT);
     Q_putElement(&eventQ, &event);
 }
 bool Event_get(Event* eventBuf)
@@ -31,7 +30,7 @@ bool Event_put(const Event* event)
     
     return rv;
 }
-Event Event_init(ApplicationEvents eventType)
+Event Event_init(AppEvent eventType)
 {
     Event event;
     event.generalEvt.token.type = eventType;

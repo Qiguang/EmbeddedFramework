@@ -3,7 +3,7 @@
 
 int main(int argc, char* argv[])
 {
-    initFramework();
+    Framework_init();
     do {
         run();
     } while (1);

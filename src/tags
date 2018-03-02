@@ -5,22 +5,18 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
 APP_EVT_COUNT	events.h	/^    APP_EVT_COUNT$/;"	e	enum:__anon3
-APP_EVT_START	events.h	/^    APP_EVT_START = EVT_COUNT,$/;"	e	enum:__anon3
+APP_EVT_START	events.h	/^    APP_EVT_START = SYS_EVT_COUNT,$/;"	e	enum:__anon3
 APP_EVT_TASK1_TIMEOUT	events.h	/^    APP_EVT_TASK1_TIMEOUT,$/;"	e	enum:__anon3
-ApplicationEvents	events.h	/^} ApplicationEvents;$/;"	t	typeref:enum:__anon3
+AppEvent	events.h	/^} AppEvent;$/;"	t	typeref:enum:__anon3
 BSP_H	bsp\bsp.h	2;"	d
+Bsp_init	bsp\Win32\bsp.c	/^void Bsp_init()$/;"	f
+Bsp_onIdle	bsp\Win32\bsp.c	/^void Bsp_onIdle()$/;"	f
 DEFINE_TASK	taskEngine.h	14;"	d
 ENTER_CRITICAL_SESSION	bsp\Win32\bsp.c	/^void ENTER_CRITICAL_SESSION()$/;"	f
 EVENTFRAMEWORK_H	eventFramework.h	2;"	d
 EVENTQ_H	eventQ.h	2;"	d
 EVENTS_H	events.h	2;"	d
 EVENT_Q_SIZE	frameworkConfig.h	3;"	d
-EVT_COUNT	events.h	/^    EVT_COUNT$/;"	e	enum:__anon2
-EVT_ENTER	events.h	/^    EVT_ENTER,$/;"	e	enum:__anon2
-EVT_INIT	events.h	/^    EVT_INIT = 0,$/;"	e	enum:__anon2
-EVT_QUIT	events.h	/^    EVT_QUIT,$/;"	e	enum:__anon2
-EVT_TIMEOUT	events.h	/^    EVT_TIMEOUT,$/;"	e	enum:__anon2
-EVT_TIME_TICK	events.h	/^    EVT_TIME_TICK,$/;"	e	enum:__anon2
 EXIT_CRITICAL_SESSION	bsp\Win32\bsp.c	/^void EXIT_CRITICAL_SESSION()$/;"	f
 Event	events.h	/^}Event;$/;"	t	typeref:union:__anon6
 EventToken	events.h	/^} EventToken;$/;"	t	typeref:struct:__anon4
@@ -33,15 +29,22 @@ Event_initQ	eventQ.c	/^void Event_initQ()$/;"	f
 Event_initTarget	eventQ.c	/^Event Event_initTarget(uint8_t eventType, Task* target)$/;"	f
 Event_put	eventQ.c	/^bool Event_put(const Event* event) $/;"	f
 FRAMEWORKCONFIG_H	frameworkConfig.h	2;"	d
-FrameworkEvents	events.h	/^} FrameworkEvents;$/;"	t	typeref:enum:__anon2
+Framework_init	EventFramework.c	/^void Framework_init()$/;"	f
 GeneralEvent	events.h	/^}GeneralEvent;$/;"	t	typeref:struct:__anon5
 LOG_H	log.h	2;"	d
 QUEUE_H	utils\queue.h	2;"	d
 Q_getElement	utils\queue.c	/^bool Q_getElement(Queue* q, void* elementBuf)$/;"	f
-Q_initQ	utils\queue.c	/^Queue Q_initQ(void* bufferPointer, uint8_t queueSize, uint8_t elementSize)$/;"	f
+Q_init	utils\queue.c	/^Queue Q_init(void* bufferPointer, uint8_t queueSize, uint8_t elementSize)$/;"	f
 Q_putElement	utils\queue.c	/^bool Q_putElement(Queue* q, const void* element)$/;"	f
 Queue	utils\queue.h	/^}Queue;$/;"	t	typeref:struct:__anon7
+SYS_EVT_COUNT	events.h	/^    SYS_EVT_COUNT$/;"	e	enum:__anon2
+SYS_EVT_ENTER	events.h	/^    SYS_EVT_ENTER,$/;"	e	enum:__anon2
+SYS_EVT_INIT	events.h	/^    SYS_EVT_INIT = 0,$/;"	e	enum:__anon2
+SYS_EVT_QUIT	events.h	/^    SYS_EVT_QUIT,$/;"	e	enum:__anon2
+SYS_EVT_TIMEOUT	events.h	/^    SYS_EVT_TIMEOUT,$/;"	e	enum:__anon2
+SYS_EVT_TIMETICK	events.h	/^    SYS_EVT_TIMETICK,$/;"	e	enum:__anon2
 StateProc	taskEngine.h	/^typedef void* (* StateProc)(Event* event);$/;"	t
+SysEvent	events.h	/^} SysEvent;$/;"	t	typeref:enum:__anon2
 TASK1_H	task1.h	2;"	d
 TASK2_H	task2.h	2;"	d
 TASKENGINE_H	taskEngine.h	2;"	d
@@ -51,6 +54,7 @@ Task	taskEngine.h	/^}Task;$/;"	t	typeref:struct:Task_t
 Task_t	taskEngine.h	/^typedef struct Task_t{$/;"	s
 Tasks	eventFramework.h	/^} Tasks;$/;"	t	typeref:struct:__anon1
 TimeTickCallback	bsp\bsp.h	/^typedef void (*TimeTickCallback)();$/;"	t
+Timer_init	timer.c	/^void Timer_init()$/;"	f
 bool	utils\types.h	/^typedef uint8_t bool;$/;"	t
 buffer	utils\queue.h	/^    uint8_t* buffer;$/;"	m	struct:__anon7
 count	eventFramework.h	/^    uint8_t count;$/;"	m	struct:__anon1
@@ -68,14 +72,10 @@ getTasks	EventFramework.c	/^Tasks* getTasks()$/;"	f
 head	utils\queue.h	/^    uint8_t head;$/;"	m	struct:__anon7
 init	task1.c	/^void* init(Event* event)$/;"	f
 init	task2.c	/^void* init(Event* event)$/;"	f
-initBsp	bsp\Win32\bsp.c	/^void initBsp()$/;"	f
-initFramework	EventFramework.c	/^void initFramework()$/;"	f
 initTasks	EventFramework.c	/^void initTasks()$/;"	f
-initTimer	timer.c	/^void initTimer()$/;"	f
 log_err	log.h	3;"	d
 main	main.c	/^int main(int argc, char* argv[])$/;"	f
 null	utils\types.h	12;"	d
-onIdle	bsp\Win32\bsp.c	/^void onIdle()$/;"	f
 previousState	taskEngine.h	/^    StateProc previousState;$/;"	m	struct:Task_t
 proc	task1.c	/^void* proc(Event* event)$/;"	f
 proc	task2.c	/^void* proc(Event* event)$/;"	f

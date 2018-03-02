@@ -7,6 +7,6 @@ typedef struct {
 } Tasks;
 
 void run();
-void initFramework();
+void Framework_init();
 Tasks* getTasks();
 #endif /* ifndef EVENTFRAMEWORK_H */

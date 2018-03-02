@@ -6,7 +6,7 @@
 #include "./bsp/bsp.h"
 void tickCountDown(Task* task);
 static void timeTickCallback();
-void initTimer()
+void Timer_init()
 {
 
     setTimeTickCallback(timeTickCallback);
@@ -14,14 +14,14 @@ void initTimer()
 }
 void setTaskTickCount(Task* task, uint16_t tickCount)
 {
-    subscribeEvent(task, EVT_TIMEOUT);
+    subscribeEvent(task, SYS_EVT_TIMEOUT);
     ENTER_CRITICAL_SESSION();
     task->timeTickCount = tickCount;
     EXIT_CRITICAL_SESSION();
 }
 void timeTickCallback()
 {
-    Event event = Event_init(EVT_TIME_TICK);
+    Event event = Event_init(SYS_EVT_TIMETICK);
     Event_put(&event);
 
     Tasks* tasks = getTasks();
@@ -44,7 +44,7 @@ void tickCountDown(Task* task)
     }
     EXIT_CRITICAL_SESSION();
     if (tickOut) {
-        Event event = Event_initTarget(EVT_TIMEOUT, task);
+        Event event = Event_initTarget(SYS_EVT_TIMEOUT, task);
         Event_put(&event);
     }
 }

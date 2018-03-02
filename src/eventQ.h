@@ -3,7 +3,7 @@
 #include "./utils/types.h"
 #include "taskEngine.h"
 void Event_initQ();
-Event Event_init(ApplicationEvents eventType);
+Event Event_init(AppEvent eventType);
 Event Event_initTarget(uint8_t eventType, Task* target);
 bool Event_get(Event* eventBuf);
 bool Event_put(const Event* event);
