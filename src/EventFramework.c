@@ -1,16 +1,16 @@
 #include <stdint.h>
-#include "Queue.h"
-#include "bsp/Win32/bsp.h"
+#include "./utils/queue.h"
+#include "./bsp/bsp.h"
 #include "log.h"
 #include "events.h"
 #include "frameworkConfig.h"
 #include "taskEngine.h"
-#include "types.h"
+#include "./utils/types.h"
 #include "eventQ.h"
 #include "timer.h"
 #include "task1.h"
 #include "task2.h"
-#include "EventFramework.h"
+#include "eventFramework.h"
 void dispatchEvent(Event* event);
 void initTasks();
 bool deliverEvent(Task* task, Event* event);

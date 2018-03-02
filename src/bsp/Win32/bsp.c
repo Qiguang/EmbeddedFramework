@@ -1,6 +1,6 @@
 #include <Windows.h>
 #include <stdint.h>
-#include "bsp.h"
+#include "../bsp.h"
 CRITICAL_SECTION criticalSection;
 DWORD WINAPI timeTickService(_In_ LPVOID lpParameter);
 TimeTickCallback timeTickCallback;

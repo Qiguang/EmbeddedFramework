@@ -1,8 +1,8 @@
-#include "Queue.h"
+#include "./utils/queue.h"
 #include "events.h"
 #include "frameworkConfig.h"
 #include "taskEngine.h"
-#include "bsp.h"
+#include "./bsp/bsp.h"
 
 Event eventQBuffer[EVENT_Q_SIZE];
 Queue eventQ;

@@ -1,6 +1,6 @@
-#include "Queue.h"
-#include "bsp.h"
-#include "log.h"
+#include "queue.h"
+#include "../bsp/bsp.h"
+#include "../log.h"
 #include <string.h>
 Queue initQ(void* bufferPointer, uint8_t queueSize, uint8_t elementSize)
 {

@@ -1,6 +1,6 @@
 #ifndef EVENTQ_H
 #define EVENTQ_H
-#include "types.h"
+#include "./utils/types.h"
 #include "taskEngine.h"
 void initEventQ();
 Event initEvent(ApplicationEvents eventType);

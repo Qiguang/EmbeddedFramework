@@ -12,15 +12,15 @@ typedef struct Task_t{
 void unsubscribeEvent(Task* task, EventType eventType);
 void subscribeEvent(Task* task, EventType eventType);
 #define DEFINE_TASK(TASKNAME, INITSTATE) Task TASKNAME = {0, INITSTATE, 0}
-#ifdef __GNUC__
-#define DEFINE_TASK(TASKNAME, INITSTATE)                        \
-        static Task TASKNAME = {0, INITSTATE, 0};        \
-        Task* pTask __attribute__((section ("taskList"))) = &TASKNAME;
-#elif _MSVC_VER
-#define DEFINE_TASK(TASKNAME, INITSTATE)                        \
-        static Task TASKNAME = {0, INITSTATE, 0};   \
-        #pragma data_seg(".taskList") \
-        __declspec(allocate("taskList")) Task* pTask = &task1;
-#endif
+//#ifdef __GNUC__
+//#define DEFINE_TASK(TASKNAME, INITSTATE)                        \
+        //static Task TASKNAME = {0, INITSTATE, 0};        \
+        //Task* pTask __attribute__((section ("taskList"))) = &TASKNAME;
+//#elif _MSVC_VER
+//#define DEFINE_TASK(TASKNAME, INITSTATE)                        \
+        //static Task TASKNAME = {0, INITSTATE, 0};   \
+        //#pragma data_seg(".taskList") \
+        //__declspec(allocate("taskList")) Task* pTask = &task1;
+//#endif
 #endif /* ifndef TASKENGINE_H */
 
