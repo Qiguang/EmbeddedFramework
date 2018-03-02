@@ -10,13 +10,13 @@ DEFINE_TASK(task2, init);
 
 void* init(Event* event)
 {
-    switch (getEventType(event)) {
+    switch (Event_getType(event)) {
         case EVT_INIT:
             subscribeEvent(&task2, APP_EVT_TASK1_TIMEOUT);
             return proc;
             break;
         default:
-            printf("task2:init:unhandled event %d\r\n", getEventType(event));
+            printf("task2:init:unhandled event %d\r\n", Event_getType(event));
             
     }
     return proc;
@@ -25,7 +25,7 @@ void* init(Event* event)
 void* proc(Event* event)
 {
 
-    switch (getEventType(event)) {
+    switch (Event_getType(event)) {
         case EVT_ENTER:
             printf("task2:proc:event EVT_ENTER\r\n");
             return proc;
@@ -34,7 +34,7 @@ void* proc(Event* event)
             printf("task2:proc:event APP_EVT_TASK1_TIMEOUT\r\n");
             break;
         default:
-            printf("task2:init:unhandled event %d\r\n", getEventType(event));
+            printf("task2:init:unhandled event %d\r\n", Event_getType(event));
             
     }
     return proc;

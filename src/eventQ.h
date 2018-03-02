@@ -2,11 +2,11 @@
 #define EVENTQ_H
 #include "./utils/types.h"
 #include "taskEngine.h"
-void initEventQ();
-Event initEvent(ApplicationEvents eventType);
-Event initEventTarget(uint8_t eventType, Task* target);
-bool getEvent(Event* eventBuf);
-bool putEvent(const Event* event);
-uint8_t getEventType(const Event* event);
-Task* getEventTarget(const Event* event);
+void Event_initQ();
+Event Event_init(ApplicationEvents eventType);
+Event Event_initTarget(uint8_t eventType, Task* target);
+bool Event_get(Event* eventBuf);
+bool Event_put(const Event* event);
+uint8_t Event_getType(const Event* event);
+Task* Event_getTarget(const Event* event);
 #endif /* ifndef EVENTQ_H */

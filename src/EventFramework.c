@@ -23,7 +23,7 @@ Tasks* getTasks()
 }
 void initFramework()
 {
-    initEventQ();
+    Event_initQ();
     initTasks();
     initTimer();
     
@@ -41,7 +41,7 @@ void initTasks()
 void run()
 {
    Event event;
-   if (getEvent(&event)) {
+   if (Event_get(&event)) {
       dispatchEvent(&event); 
    } else {
       onIdle();
@@ -50,7 +50,7 @@ void run()
 void dispatchEvent(Event* event)
 {
     int i;
-    Task* taskTarget = getEventTarget(event);
+    Task* taskTarget = Event_getTarget(event);
     if (taskTarget != null) {
         deliverEvent(taskTarget, event);
     } else {
@@ -63,7 +63,7 @@ void dispatchEvent(Event* event)
 bool deliverEvent(Task* task, Event* event)
 {
     bool rv = true;
-    if (task->eventSubscribeTable[getEventType(event)/8] & (1<<getEventType(event)%8)) {
+    if (task->eventSubscribeTable[Event_getType(event)/8] & (1<<Event_getType(event)%8)) {
         // TODO: assert state != null;
         StateProc nextState = (StateProc)task->state(event);
         if (nextState != task->state) {
@@ -72,9 +72,9 @@ bool deliverEvent(Task* task, Event* event)
             task->state = nextState;
 
             Event event;
-            event = initEvent(EVT_QUIT);
+            event = Event_init(EVT_QUIT);
             task->previousState(&event);
-            event = initEvent(EVT_ENTER);
+            event = Event_init(EVT_ENTER);
             task->state(&event);
         }
     } else {

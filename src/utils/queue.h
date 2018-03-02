@@ -11,7 +11,7 @@ typedef struct {
     uint8_t elementCount;
     uint8_t qSize;
 }Queue;
-Queue initQ(void* bufferPointer, uint8_t queueSize, uint8_t elementSize);
-bool putElement(Queue* q, const void* element);
-bool getElement(Queue* q, void* elementBuf);
+Queue Q_init(void* bufferPointer, uint8_t queueSize, uint8_t elementSize);
+bool Q_putElement(Queue* q, const void* element);
+bool Q_getElement(Queue* q, void* elementBuf);
 #endif /* ifndef QUEUE_H */

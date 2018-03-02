@@ -21,8 +21,8 @@ void setTaskTickCount(Task* task, uint16_t tickCount)
 }
 void timeTickCallback()
 {
-    Event event = initEvent(EVT_TIME_TICK);
-    putEvent(&event);
+    Event event = Event_init(EVT_TIME_TICK);
+    Event_put(&event);
 
     Tasks* tasks = getTasks();
     int i;
@@ -44,7 +44,7 @@ void tickCountDown(Task* task)
     }
     EXIT_CRITICAL_SESSION();
     if (tickOut) {
-        Event event = initEventTarget(EVT_TIMEOUT, task);
-        putEvent(&event);
+        Event event = Event_initTarget(EVT_TIMEOUT, task);
+        Event_put(&event);
     }
 }

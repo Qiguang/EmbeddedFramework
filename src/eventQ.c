@@ -6,39 +6,39 @@
 
 Event eventQBuffer[EVENT_Q_SIZE];
 Queue eventQ;
-Event initEvent(ApplicationEvents eventType);
+Event Event_init(ApplicationEvents eventType);
 
-void initEventQ()
+void Event_initQ()
 {
-    eventQ = initQ(eventQBuffer, sizeof(eventQBuffer)/sizeof(eventQBuffer[0]), sizeof(eventQBuffer[0]));
-    Event event = initEvent(EVT_INIT);
+    eventQ = Q_init(eventQBuffer, sizeof(eventQBuffer)/sizeof(eventQBuffer[0]), sizeof(eventQBuffer[0]));
+    Event event = Event_init(EVT_INIT);
     event.generalEvt.token.type = EVT_INIT;
-    putElement(&eventQ, &event);
+    Q_putElement(&eventQ, &event);
 }
-bool getEvent(Event* eventBuf)
+bool Event_get(Event* eventBuf)
 {
     ENTER_CRITICAL_SESSION();
-    bool rv = getElement(&eventQ, eventBuf);
+    bool rv = Q_getElement(&eventQ, eventBuf);
     EXIT_CRITICAL_SESSION();
     
     return rv;
 }
-bool putEvent(const Event* event) 
+bool Event_put(const Event* event) 
 {
     ENTER_CRITICAL_SESSION();
-    bool rv = putElement(&eventQ, event);
+    bool rv = Q_putElement(&eventQ, event);
     EXIT_CRITICAL_SESSION();
     
     return rv;
 }
-Event initEvent(ApplicationEvents eventType)
+Event Event_init(ApplicationEvents eventType)
 {
     Event event;
     event.generalEvt.token.type = eventType;
     event.generalEvt.token.target = null;
     return event;
 }
-Event initEventTarget(uint8_t eventType, Task* target)
+Event Event_initTarget(uint8_t eventType, Task* target)
 {
     Event event;
     event.generalEvt.token.type = eventType;
@@ -46,11 +46,11 @@ Event initEventTarget(uint8_t eventType, Task* target)
     return event;
     
 }
-uint8_t getEventType(const Event* event)
+uint8_t Event_getType(const Event* event)
 {
     return event->generalEvt.token.type;
 }
-Task* getEventTarget(const Event* event)
+Task* Event_getTarget(const Event* event)
 {
     return event->generalEvt.token.target;
 }

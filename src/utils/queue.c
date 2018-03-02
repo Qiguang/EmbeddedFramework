@@ -2,7 +2,7 @@
 #include "../bsp/bsp.h"
 #include "../log.h"
 #include <string.h>
-Queue initQ(void* bufferPointer, uint8_t queueSize, uint8_t elementSize)
+Queue Q_init(void* bufferPointer, uint8_t queueSize, uint8_t elementSize)
 {
     Queue q;
     q.buffer = bufferPointer;
@@ -13,7 +13,7 @@ Queue initQ(void* bufferPointer, uint8_t queueSize, uint8_t elementSize)
     q.qSize = queueSize;
     return q;
 }
-bool putElement(Queue* q, const void* element)
+bool Q_putElement(Queue* q, const void* element)
 {
     bool rv = true;
     bool Q_FULL = (q->elementCount == q->qSize);
@@ -28,7 +28,7 @@ bool putElement(Queue* q, const void* element)
     }
     return rv;
 }
-bool getElement(Queue* q, void* elementBuf)
+bool Q_getElement(Queue* q, void* elementBuf)
 {
     bool rv = true;
     bool Q_EMPTY = (q->elementCount == 0);
