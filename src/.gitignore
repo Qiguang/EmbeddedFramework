@@ -1,3 +1,3 @@
 *.taghl
 *.lvimrc
-tags
+/tags

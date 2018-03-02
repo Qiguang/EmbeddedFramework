@@ -1,6 +1,7 @@
 #ifndef TASKENGINE_H
 #define TASKENGINE_H
 #include "events.h"
+#include "./utils/types.h"
 typedef void* (* StateProc)(Event* event);
 typedef struct Task_t{
     StateProc previousState;
@@ -11,6 +12,7 @@ typedef struct Task_t{
 }Task;
 void unsubscribeEvent(Task* task, EventType eventType);
 void subscribeEvent(Task* task, EventType eventType);
+bool isEvtSubscribed(const Task* task, const Event* event);
 #define DEFINE_TASK(TASKNAME, INITSTATE) Task TASKNAME = {0, INITSTATE, 0}
 //#ifdef __GNUC__
 //#define DEFINE_TASK(TASKNAME, INITSTATE)                        \

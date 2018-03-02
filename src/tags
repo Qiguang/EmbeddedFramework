@@ -11,7 +11,7 @@ AppEvent	events.h	/^} AppEvent;$/;"	t	typeref:enum:__anon2
 BSP_H	bsp\bsp.h	2;"	d
 Bsp_init	bsp\Win32\bsp.c	/^void Bsp_init()$/;"	f
 Bsp_onIdle	bsp\Win32\bsp.c	/^void Bsp_onIdle()$/;"	f
-DEFINE_TASK	taskEngine.h	14;"	d
+DEFINE_TASK	taskEngine.h	15;"	d
 ENTER_CRITICAL_SESSION	bsp\Win32\bsp.c	/^void ENTER_CRITICAL_SESSION()$/;"	f
 EVENTFRAMEWORK_H	framework.h	2;"	d
 EVENTQ_H	eventQ.h	2;"	d
@@ -38,9 +38,9 @@ Q_init	utils\queue.c	/^Queue Q_init(void* bufferPointer, uint8_t queueSize, uint
 Q_putElement	utils\queue.c	/^bool Q_putElement(Queue* q, const void* element)$/;"	f
 Queue	utils\queue.h	/^}Queue;$/;"	t	typeref:struct:__anon7
 SYSEVT_COUNT	events.h	/^    SYSEVT_COUNT$/;"	e	enum:__anon1
-SYSEVT_ENTER	events.h	/^    SYSEVT_ENTER,$/;"	e	enum:__anon1
+SYSEVT_ENTER	events.h	/^    SYSEVT_ENTER, \/\/ enter the state$/;"	e	enum:__anon1
 SYSEVT_INIT	events.h	/^    SYSEVT_INIT = 0,$/;"	e	enum:__anon1
-SYSEVT_QUIT	events.h	/^    SYSEVT_QUIT,$/;"	e	enum:__anon1
+SYSEVT_QUIT	events.h	/^    SYSEVT_QUIT,  \/\/ quit the state$/;"	e	enum:__anon1
 SYSEVT_TIMEOUT	events.h	/^    SYSEVT_TIMEOUT,$/;"	e	enum:__anon1
 SYSEVT_TIMETICK	events.h	/^    SYSEVT_TIMETICK,$/;"	e	enum:__anon1
 StateProc	taskEngine.h	/^typedef void* (* StateProc)(Event* event);$/;"	t
@@ -73,6 +73,7 @@ head	utils\queue.h	/^    uint8_t head;$/;"	m	struct:__anon7
 init	task1.c	/^void* init(Event* event)$/;"	f
 init	task2.c	/^void* init(Event* event)$/;"	f
 initTasks	framework.c	/^void initTasks()$/;"	f
+isEvtSubscribed	taskEngine.c	/^bool isEvtSubscribed(const Task* task, const Event* event)$/;"	f
 log_err	log.h	3;"	d
 main	main.c	/^int main(int argc, char* argv[])$/;"	f
 null	utils\types.h	12;"	d

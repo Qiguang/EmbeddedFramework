@@ -1,4 +1,5 @@
 #include "./utils/queue.h"
+#include "./utils/types.h"
 #include "events.h"
 #include "frameworkConfig.h"
 #include "taskEngine.h"
@@ -34,7 +35,7 @@ Event Event_init(AppEvent eventType)
 {
     Event event;
     event.generalEvt.token.type = eventType;
-    event.generalEvt.token.target = null;
+    event.generalEvt.token.target = NULL;
     return event;
 }
 Event Event_initTarget(uint8_t eventType, Task* target)

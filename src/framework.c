@@ -51,7 +51,7 @@ void dispatchEvent(Event* event)
 {
     int i;
     Task* eventTarget = Event_getTarget(event);
-    if (eventTarget != null) {
+    if (eventTarget != NULL) {
         deliverEvent(eventTarget, event);
     } else {
         for (i = 0; i < sizeof(taskList)/sizeof(taskList[0]); ++i) {
@@ -63,7 +63,7 @@ void dispatchEvent(Event* event)
 bool deliverEvent(Task* task, Event* event)
 {
     bool rv = true;
-    if (task->eventSubscribeTable[Event_getType(event)/8] & (1<<Event_getType(event)%8)) {
+    if (isEvtSubscribed(task, event)) {
         // TODO: assert state != null;
         StateProc nextState = (StateProc)task->state(event);
         if (nextState != task->state) {
