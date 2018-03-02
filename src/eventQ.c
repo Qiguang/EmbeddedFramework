@@ -2,7 +2,7 @@
 #include "./utils/types.h"
 #include "events.h"
 #include "frameworkConfig.h"
-#include "taskEngine.h"
+#include "task.h"
 #include "./bsp/bsp.h"
 
 static Event eventQBuffer[EVENT_Q_SIZE];

@@ -1,23 +1,84 @@
-#include "taskEngine.h"
+#include <stdint.h>
+#include "./utils/queue.h"
+#include "./bsp/bsp.h"
+#include "log.h"
+#include "events.h"
+#include "frameworkConfig.h"
+#include "task.h"
+#include "./utils/types.h"
 #include "eventQ.h"
-void subscribeEvent(Task* task, EventType eventType)
+#include "timer.h"
+#include "task1.h"
+#include "task2.h"
+#include "framework.h"
+void dispatchEvent(Event* event);
+void initTasks();
+bool deliverEvent(Task* task, Event* event);
+
+Task* taskList[] = {&task1, &task2};
+Tasks tasks = {taskList, sizeof(taskList)/sizeof(taskList[0])};
+Tasks* getTasks()
 {
-    // TODO: assert eventType < APPEVT_COUNT
-    task->eventSubscribeTable[eventType/8] |= (1 << eventType%8);
-    
+    return &tasks;
 }
-void unsubscribeEvent(Task* task, EventType eventType)
+void Framework_init()
 {
-    // TODO: assert eventType < APPEVT_COUNT
-    task->eventSubscribeTable[eventType/8] &= ~(1 << eventType%8);
+    Event_initQ();
+    initTasks();
+    Timer_init();
     
+    Bsp_init();
 }
-bool isEvtSubscribed(const Task* task, const Event* event)
+void initTasks()
 {
-    if (task->eventSubscribeTable[Event_getType(event)/8] & (1<<Event_getType(event)%8)) {
-        return true;
-    } else {
-        return false;
+    int i;
+    for (i = 0; i < sizeof(taskList)/sizeof(taskList[0]); ++i) {
+        subscribeEvent(taskList[i], SYSEVT_INIT);
+        subscribeEvent(taskList[i], SYSEVT_ENTER);
+        subscribeEvent(taskList[i], SYSEVT_QUIT);
     }
 }
+void run()
+{
+   Event event;
+   if (Event_get(&event)) {
+      dispatchEvent(&event); 
+   } else {
+      Bsp_onIdle();
+   }
+}
+void dispatchEvent(Event* event)
+{
+    int i;
+    Task* eventTarget = Event_getTarget(event);
+    if (eventTarget != NULL) {
+        deliverEvent(eventTarget, event);
+    } else {
+        for (i = 0; i < sizeof(taskList)/sizeof(taskList[0]); ++i) {
+            Task* task = taskList[i];
+            deliverEvent(task, event);
+        }
+    }
+}
+bool deliverEvent(Task* task, Event* event)
+{
+    bool rv = true;
+    if (isEvtSubscribed(task, event)) {
+        // TODO: assert state != null;
+        StateProc nextState = (StateProc)task->state(event);
+        if (nextState != task->state) {
+            // state is changing
+            task->previousState = task->state;
+            task->state = nextState;
 
+            Event event;
+            event = Event_init(SYSEVT_QUIT);
+            task->previousState(&event);
+            event = Event_init(SYSEVT_ENTER);
+            task->state(&event);
+        }
+    } else {
+        rv = false;
+    }
+    return rv;
+}
