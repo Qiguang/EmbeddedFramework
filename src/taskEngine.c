@@ -1,13 +1,3 @@
-#include <stdint.h>
-#include "./utils/queue.h"
-#include "./bsp/bsp.h"
-#include "log.h"
-#include "events.h"
-#include "frameworkConfig.h"
-#include "task.h"
-#include "./utils/types.h"
-#include "eventQ.h"
-#include "timer.h"
 #include "task1.h"
 #include "task2.h"
 #include "framework.h"
