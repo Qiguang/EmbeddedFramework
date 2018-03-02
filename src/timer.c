@@ -1,7 +1,7 @@
 #include "events.h"
 #include "eventQ.h"
 #include "timer.h"
-#include "EventFramework.h"
+#include "framework.h"
 #include "taskEngine.h"
 #include "./bsp/bsp.h"
 void tickCountDown(Task* task);
@@ -14,14 +14,14 @@ void Timer_init()
 }
 void setTaskTickCount(Task* task, uint16_t tickCount)
 {
-    subscribeEvent(task, SYS_EVT_TIMEOUT);
+    subscribeEvent(task, SYSEVT_TIMEOUT);
     ENTER_CRITICAL_SESSION();
     task->timeTickCount = tickCount;
     EXIT_CRITICAL_SESSION();
 }
 void timeTickCallback()
 {
-    Event event = Event_init(SYS_EVT_TIMETICK);
+    Event event = Event_init(SYSEVT_TIMETICK);
     Event_put(&event);
 
     Tasks* tasks = getTasks();
@@ -44,7 +44,7 @@ void tickCountDown(Task* task)
     }
     EXIT_CRITICAL_SESSION();
     if (tickOut) {
-        Event event = Event_initTarget(SYS_EVT_TIMEOUT, task);
+        Event event = Event_initTarget(SYSEVT_TIMEOUT, task);
         Event_put(&event);
     }
 }

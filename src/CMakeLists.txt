@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.0)
 project (EmbeddedFramework)
 set (TARGET_NAME APP)
-set (FRAMEWORK eventQ.c log.c taskEngine.c timer.c eventFramework.c main.c task1.c task2.c)
+set (FRAMEWORK eventQ.c log.c taskEngine.c timer.c framework.c main.c task1.c task2.c)
 set (UTILS utils/queue.c)
 if (WIN32 OR MINGW)
     set (BSP bsp/Win32/bsp.c)

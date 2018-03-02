@@ -13,11 +13,11 @@ DEFINE_TASK(task1, init);
 void* init(Event* event)
 {
     switch (Event_getType(event)) {
-        case SYS_EVT_INIT:
-            printf("task1:init:event SYS_EVT_INIT\r\n");
+        case SYSEVT_INIT:
+            printf("task1:init:event SYSEVT_INIT\r\n");
             break;
-        case SYS_EVT_QUIT:
-            printf("task1:init:event SYS_EVT_QUIT\r\n");
+        case SYSEVT_QUIT:
+            printf("task1:init:event SYSEVT_QUIT\r\n");
             break;
         default:
             printf("task1:init:unhandled event %d\r\n", Event_getType(event));
@@ -28,17 +28,17 @@ void* init(Event* event)
 void* proc(Event* event)
 {
     switch (Event_getType(event)) {
-        case SYS_EVT_ENTER:
-            printf("task1:proc:event SYS_EVT_ENTER\r\n");
+        case SYSEVT_ENTER:
+            printf("task1:proc:event SYSEVT_ENTER\r\n");
             setTaskTickCount(&task1, 1000U);
             break;
-        case SYS_EVT_TIMEOUT: {
+        case SYSEVT_TIMEOUT: {
 
             setTaskTickCount(&task1, 1000U);
-            Event event = Event_init(APP_EVT_TASK1_TIMEOUT);
+            Event event = Event_init(APPEVT_TASK1_TIMEOUT);
             Event_put(&event);
 
-            printf("task1:proc:event SYS_EVT_TIMEOUT\r\n");
+            printf("task1:proc:event SYSEVT_TIMEOUT\r\n");
             break;
         }
         default:

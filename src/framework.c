@@ -10,7 +10,7 @@
 #include "timer.h"
 #include "task1.h"
 #include "task2.h"
-#include "eventFramework.h"
+#include "framework.h"
 void dispatchEvent(Event* event);
 void initTasks();
 bool deliverEvent(Task* task, Event* event);
@@ -33,9 +33,9 @@ void initTasks()
 {
     int i;
     for (i = 0; i < sizeof(taskList)/sizeof(taskList[0]); ++i) {
-        subscribeEvent(taskList[i], SYS_EVT_INIT);
-        subscribeEvent(taskList[i], SYS_EVT_ENTER);
-        subscribeEvent(taskList[i], SYS_EVT_QUIT);
+        subscribeEvent(taskList[i], SYSEVT_INIT);
+        subscribeEvent(taskList[i], SYSEVT_ENTER);
+        subscribeEvent(taskList[i], SYSEVT_QUIT);
     }
 }
 void run()
@@ -72,9 +72,9 @@ bool deliverEvent(Task* task, Event* event)
             task->state = nextState;
 
             Event event;
-            event = Event_init(SYS_EVT_QUIT);
+            event = Event_init(SYSEVT_QUIT);
             task->previousState(&event);
-            event = Event_init(SYS_EVT_ENTER);
+            event = Event_init(SYSEVT_ENTER);
             task->state(&event);
         }
     } else {

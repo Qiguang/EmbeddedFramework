@@ -11,7 +11,7 @@ Event Event_init(AppEvent eventType);
 void Event_initQ()
 {
     eventQ = Q_init(eventQBuffer, sizeof(eventQBuffer)/sizeof(eventQBuffer[0]), sizeof(eventQBuffer[0]));
-    Event event = Event_init(SYS_EVT_INIT);
+    Event event = Event_init(SYSEVT_INIT);
     Q_putElement(&eventQ, &event);
 }
 bool Event_get(Event* eventBuf)

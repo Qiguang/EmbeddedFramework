@@ -5,7 +5,7 @@ typedef void* (* StateProc)(Event* event);
 typedef struct Task_t{
     StateProc previousState;
     StateProc state;
-    uint8_t eventSubscribeTable[(APP_EVT_COUNT+7)/8];
+    uint8_t eventSubscribeTable[(APPEVT_COUNT+7)/8];
     uint16_t timeTickCount;
     uint16_t timeTickCountSec;
 }Task;

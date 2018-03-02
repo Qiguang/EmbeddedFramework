@@ -6,21 +6,21 @@
  *  events generated from this framework
  */
 typedef enum { 
-    SYS_EVT_INIT = 0,
-    SYS_EVT_ENTER,
-    SYS_EVT_QUIT,
-    SYS_EVT_TIMETICK,
-    SYS_EVT_TIMEOUT,
-    SYS_EVT_COUNT
+    SYSEVT_INIT = 0,
+    SYSEVT_ENTER,
+    SYSEVT_QUIT,
+    SYSEVT_TIMETICK,
+    SYSEVT_TIMEOUT,
+    SYSEVT_COUNT
 } SysEvent;
 /*! \enum AppEvent
  *
  *  Detailed description
  */
 typedef enum {
-    APP_EVT_START = SYS_EVT_COUNT,
-    APP_EVT_TASK1_TIMEOUT,
-    APP_EVT_COUNT
+    APPEVT_START = SYSEVT_COUNT,
+    APPEVT_TASK1_TIMEOUT,
+    APPEVT_COUNT
 } AppEvent;
 #define EventType uint8_t
 typedef struct {
