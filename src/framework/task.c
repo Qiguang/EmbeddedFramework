@@ -1,5 +1,10 @@
 #include "task.h"
 #include "eventQ.h"
+#include "../app/taskDefinition.h"
+Tasks* getTasks()
+{
+    return &tasks;
+}
 void subscribeEvent(Task* task, EventType eventType)
 {
     // TODO: assert eventType < APPEVT_COUNT

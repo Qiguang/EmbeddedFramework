@@ -2,9 +2,9 @@
 
 int main(int argc, char* argv[])
 {
-    Framework_init();
+    TaskEngine_init();
     do {
-        run();
+        TaskEngine_run();
     } while (1);
     return 0;
 }

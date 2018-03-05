@@ -1,8 +1,5 @@
-#include "task.h"
+#include "../framework/framework.h"
 #include "stdio.h"
-#include "events.h"
-#include "eventQ.h"
-#include "timer.h"
 #include "Windows.h"
 #include "task1.h"
 void* init(Event* event);

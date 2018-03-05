@@ -1,17 +1,9 @@
-#include "task1.h"
-#include "task2.h"
 #include "framework.h"
 void dispatchEvent(Event* event);
 void initTasks();
 bool deliverEvent(Task* task, Event* event);
 
-Task* taskList[] = {&task1, &task2};
-Tasks tasks = {taskList, sizeof(taskList)/sizeof(taskList[0])};
-Tasks* getTasks()
-{
-    return &tasks;
-}
-void Framework_init()
+void TaskEngine_init()
 {
     Event_initQ();
     initTasks();
@@ -22,13 +14,15 @@ void Framework_init()
 void initTasks()
 {
     int i;
-    for (i = 0; i < sizeof(taskList)/sizeof(taskList[0]); ++i) {
-        subscribeEvent(taskList[i], SYSEVT_INIT);
-        subscribeEvent(taskList[i], SYSEVT_ENTER);
-        subscribeEvent(taskList[i], SYSEVT_QUIT);
+    Tasks* tasks = getTasks();
+    for (i = 0; i < tasks->count; ++i) {
+        Task* task = tasks->taskList[i];
+        subscribeEvent(task, SYSEVT_INIT);
+        subscribeEvent(task, SYSEVT_ENTER);
+        subscribeEvent(task, SYSEVT_QUIT);
     }
 }
-void run()
+void TaskEngine_run()
 {
    Event event;
    if (Event_get(&event)) {
@@ -44,8 +38,10 @@ void dispatchEvent(Event* event)
     if (eventTarget != NULL) {
         deliverEvent(eventTarget, event);
     } else {
-        for (i = 0; i < sizeof(taskList)/sizeof(taskList[0]); ++i) {
-            Task* task = taskList[i];
+        Tasks* tasks = getTasks();
+        int i;
+        for (i = 0; i < tasks->count; ++i) {
+            Task* task = tasks->taskList[i];
             deliverEvent(task, event);
         }
     }

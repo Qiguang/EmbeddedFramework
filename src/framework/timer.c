@@ -22,7 +22,7 @@ void timeTickCallback()
     Tasks* tasks = getTasks();
     int i;
     for (i = 0; i < tasks->count; ++i) {
-        Task* task = tasks->tasks[i];
+        Task* task = tasks->taskList[i];
         tickCountDown(task);
     }
     

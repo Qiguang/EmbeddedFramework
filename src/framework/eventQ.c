@@ -1,9 +1,9 @@
-#include "./utils/queue.h"
-#include "./utils/types.h"
+#include "../utils/queue.h"
+#include "../utils/types.h"
 #include "events.h"
 #include "frameworkConfig.h"
 #include "task.h"
-#include "./bsp/bsp.h"
+#include "../bsp/bsp.h"
 
 static Event eventQBuffer[EVENT_Q_SIZE];
 static Queue eventQ;
