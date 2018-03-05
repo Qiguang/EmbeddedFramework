@@ -1,11 +1,10 @@
 #include "../framework/framework.h"
 #include "stdio.h"
 #include "task2.h"
-static void* init(Event* event);
+void* Task2_init(Event* event);
 static void* proc(Event* event);
-DEFINE_TASK(task2, init);
 
-void* init(Event* event)
+void* Task2_init(Event* event)
 {
     switch (Event_getType(event)) {
         case SYSEVT_INIT:

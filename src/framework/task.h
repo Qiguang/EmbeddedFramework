@@ -18,6 +18,5 @@ Tasks* getTasks();
 void unsubscribeEvent(Task* task, EventType eventType);
 void subscribeEvent(Task* task, EventType eventType);
 bool isEvtSubscribed(const Task* task, const Event* event);
-#define DEFINE_TASK(TASKNAME, INITSTATE) Task TASKNAME = {0, INITSTATE, 0}
 #endif /* ifndef TASKENGINE_H */
 

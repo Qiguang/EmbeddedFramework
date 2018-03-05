@@ -2,12 +2,10 @@
 #include "stdio.h"
 #include "Windows.h"
 #include "task1.h"
-void* init(Event* event);
+void* Task1_init(Event* event);
 void* proc(Event* event);
 
-DEFINE_TASK(task1, init);
-
-void* init(Event* event)
+void* Task1_init(Event* event)
 {
     switch (Event_getType(event)) {
         case SYSEVT_INIT:

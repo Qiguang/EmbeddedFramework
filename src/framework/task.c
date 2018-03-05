@@ -1,10 +1,12 @@
 #include "task.h"
 #include "eventQ.h"
-#undef DECLARE_TASK
-#define DECLARE_TASK(TASKNAME) extern Task TASKNAME;
+#undef DEFINE_TASK
+#define DEFINE_TASK(TASKNAME, INITSTATE) \
+    extern void* INITSTATE(Event* event); \
+    Task TASKNAME = {0, INITSTATE, 0};
 #include "../app/taskDefinition.h"
-#undef DECLARE_TASK
-#define DECLARE_TASK(TASKNAME) &TASKNAME,
+#undef DEFINE_TASK
+#define DEFINE_TASK(TASKNAME, INITSTATE) &TASKNAME,
 Task* taskList[] = {
 #include "../app/taskDefinition.h"
 };

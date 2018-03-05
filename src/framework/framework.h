@@ -11,4 +11,5 @@
 #include "frameworkConfig.h"
 #include "../utils/types.h"
 #include "taskEngine.h"
+#include "../app/taskDefinition.h"
 #endif /* ifndef EVENTFRAMEWORK_H */
