@@ -1,6 +1,15 @@
 #include "task.h"
 #include "eventQ.h"
+#undef DECLARE_TASK
+#define DECLARE_TASK(TASKNAME) extern Task TASKNAME;
 #include "../app/taskDefinition.h"
+#undef DECLARE_TASK
+#define DECLARE_TASK(TASKNAME) &TASKNAME,
+Task* taskList[] = {
+#include "../app/taskDefinition.h"
+};
+#undef TASK_LIST_INIT
+Tasks tasks = {taskList, sizeof(taskList)/sizeof(taskList[0])};
 Tasks* getTasks()
 {
     return &tasks;
