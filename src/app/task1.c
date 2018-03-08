@@ -30,7 +30,7 @@ void* proc(Event* event)
         case SYSEVT_TIMEOUT: {
 
             setTaskTickCount(&task1, 1000U);
-            Event event = Event_init(APPEVT_TASK1_TIMEOUT);
+            Event event = Event_init(TASK1_TIMEOUT);
             Event_put(&event);
 
             printf("task1:proc:event SYSEVT_TIMEOUT\r\n");

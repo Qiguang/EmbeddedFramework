@@ -7,7 +7,7 @@
 
 static Event eventQBuffer[EVENT_Q_SIZE];
 static Queue eventQ;
-Event Event_init(AppEvent eventType);
+Event Event_init(EventToken eventToken);
 
 void Event_initQ()
 {
@@ -31,27 +31,27 @@ bool Event_put(const Event* event)
     
     return rv;
 }
-Event Event_init(AppEvent eventType)
+Event Event_init(EventToken eventToken)
 {
     Event event;
-    event.generalEvt.token.type = eventType;
-    event.generalEvt.token.target = NULL;
+    event.token = eventToken;
+    event.target = NULL;
     return event;
 }
-Event Event_initTarget(uint8_t eventType, Task* target)
+Event Event_initTarget(uint8_t eventToken, Task* target)
 {
     Event event;
-    event.generalEvt.token.type = eventType;
-    event.generalEvt.token.target = target;
+    event.token = eventToken;
+    event.target = target;
     return event;
     
 }
 uint8_t Event_getType(const Event* event)
 {
-    return event->generalEvt.token.type;
+    return event->token;
 }
 Task* Event_getTarget(const Event* event)
 {
-    return event->generalEvt.token.target;
+    return event->target;
 }
 

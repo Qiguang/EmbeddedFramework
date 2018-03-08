@@ -12,4 +12,5 @@
 #include "../utils/types.h"
 #include "taskEngine.h"
 #include "../app/taskDefinition.h"
+#include "../app/eventDefinition.h"
 #endif /* ifndef EVENTFRAMEWORK_H */
