@@ -21,6 +21,10 @@ void Bsp_onIdle()
 {
     WaitForSingleObject(resumeEvent, INFINITE);
 }
+void Bsp_exitIdle()
+{
+    SetEvent(resumeEvent);
+}
 void setTimeTickCallback(TimeTickCallback callback)
 {
     timeTickCallback = callback;
@@ -41,8 +45,6 @@ DWORD WINAPI timeTickService(_In_ LPVOID lpParameter)
         if (timeTickCallback) {
             timeTickCallback();
         }
-
-        SetEvent(resumeEvent);
     }
 }
 

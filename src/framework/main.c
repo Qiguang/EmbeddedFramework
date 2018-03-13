@@ -2,10 +2,7 @@
 
 int main(int argc, char* argv[])
 {
-    TaskEngine_init();
-    do {
-        TaskEngine_run();
-    } while (1);
+    TaskEngine_thread();
     return 0;
 }
 

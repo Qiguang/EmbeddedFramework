@@ -28,6 +28,7 @@ bool Event_put(const Event* event)
     ENTER_CRITICAL_SESSION();
     bool rv = Q_putElement(&eventQ, event);
     EXIT_CRITICAL_SESSION();
+    Bsp_exitIdle();  // now there is at least one event in the Q, so we need exit IDLE mode
     
     return rv;
 }

@@ -68,3 +68,11 @@ bool deliverEvent(Task* task, Event* event)
     }
     return rv;
 }
+void TaskEngine_thread()
+{
+    TaskEngine_init();
+    do {
+        TaskEngine_run();
+    } while (1);
+
+}
