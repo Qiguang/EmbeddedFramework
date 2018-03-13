@@ -38,11 +38,11 @@ DWORD WINAPI timeTickService(_In_ LPVOID lpParameter)
 {
     while (1) {
         Sleep(1000U/timeTickCountPerSec);
-        SetEvent(resumeEvent);
-
         if (timeTickCallback) {
             timeTickCallback();
         }
+
+        SetEvent(resumeEvent);
     }
 }
 
