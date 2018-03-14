@@ -6,8 +6,7 @@
  *  events generated from this framework
  */
 typedef enum { 
-    SYSEVT_INIT = 0, // system startup
-    SYSEVT_ENTER, // enter the state
+    SYSEVT_ENTER = 0, // enter the state
     SYSEVT_QUIT,  // quit the state
     SYSEVT_TIMETICK,
     SYSEVT_TIMEOUT,

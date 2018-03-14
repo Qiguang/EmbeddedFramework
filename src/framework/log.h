@@ -1,5 +1,6 @@
 #ifndef LOG_H
 #define LOG_H
-#define log_err(STRING)
+#include <stdio.h>
+#define log_err(STRING) printf(STRING)
 #endif /* ifndef LOG_H */
 

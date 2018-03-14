@@ -12,7 +12,7 @@ Event Event_init(EventToken eventToken);
 void Event_initQ()
 {
     eventQ = Q_init(eventQBuffer, sizeof(eventQBuffer)/sizeof(eventQBuffer[0]), sizeof(eventQBuffer[0]));
-    Event event = Event_init(SYSEVT_INIT);
+    Event event = Event_init(SYSEVT_ENTER);
     Q_putElement(&eventQ, &event);
 }
 bool Event_get(Event* eventBuf)

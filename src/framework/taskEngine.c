@@ -17,7 +17,6 @@ void initTasks()
     Tasks* tasks = getTasks();
     for (i = 0; i < tasks->count; ++i) {
         Task* task = tasks->taskList[i];
-        subscribeEvent(task, SYSEVT_INIT);
         subscribeEvent(task, SYSEVT_ENTER);
         subscribeEvent(task, SYSEVT_QUIT);
     }

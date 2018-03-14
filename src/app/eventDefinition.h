@@ -5,6 +5,7 @@
 EVENT_DEF_BEGIN()
 // add events below
 EVENT_DEF(TASK1_TIMEOUT)
+EVENT_DEF(EVT_CONTINUE)
 // add events above
 EVENT_DEF_END()
 #endif /* ifndef EVENT_DEFINITION */

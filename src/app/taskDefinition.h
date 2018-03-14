@@ -15,5 +15,5 @@
 // to the files you created for using the framework APIs.
 // that's all you should do. Then,
 // enjoy the framework.
-DEFINE_TASK(task1, Task1_init)
-DEFINE_TASK(task2, Task2_init)
+DEFINE_TASK(window_task, window_init)
+//DEFINE_TASK(task2, Task2_init)
