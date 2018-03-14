@@ -16,16 +16,12 @@ void setTaskTickCount(Task* task, uint16_t tickCount)
 }
 void timeTickCallback()
 {
-    Event event = Event_init(SYSEVT_TIMETICK);
-    Event_put(&event);
-
     Tasks* tasks = getTasks();
     int i;
     for (i = 0; i < tasks->count; ++i) {
         Task* task = tasks->taskList[i];
         tickCountDown(task);
     }
-    
 }
 void tickCountDown(Task* task)
 {

@@ -8,7 +8,6 @@
 typedef enum { 
     SYSEVT_ENTER = 0, // enter the state
     SYSEVT_QUIT,  // quit the state
-    SYSEVT_TIMETICK,
     SYSEVT_TIMEOUT,
     SYSEVT_COUNT
 } SysEventToken;
