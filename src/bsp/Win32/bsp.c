@@ -4,7 +4,7 @@
 CRITICAL_SECTION criticalSection;
 DWORD WINAPI timeTickService(_In_ LPVOID lpParameter);
 TimeTickCallback timeTickCallback;
-uint16_t timeTickCountPerSec = 100U;
+uint16_t timeTickCountPerSec = 10U;
 void setTimeTickPerSec(uint16_t countPerSec)
 {
     timeTickCountPerSec = countPerSec;

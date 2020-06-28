@@ -25,8 +25,8 @@ void timeTickCallback()
 }
 void tickCountDown(Task* task)
 {
-    ENTER_CRITICAL_SESSION();
     bool tickOut = false;
+    ENTER_CRITICAL_SESSION();
     if (task->timeTickCount) {
         task->timeTickCount--;
         if (!task->timeTickCount) {

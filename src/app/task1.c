@@ -8,8 +8,8 @@ void* proc(Event* event);
 void* Task1_init(Event* event)
 {
     switch (Event_getType(event)) {
-        case SYSEVT_INIT:
-            printf("task1:init:event SYSEVT_INIT\r\n");
+        case SYSEVT_ENTER:
+            printf("task1:init:event SYSEVT_ENTER\r\n");
             break;
         case SYSEVT_QUIT:
             printf("task1:init:event SYSEVT_QUIT\r\n");
@@ -25,11 +25,11 @@ void* proc(Event* event)
     switch (Event_getType(event)) {
         case SYSEVT_ENTER:
             printf("task1:proc:event SYSEVT_ENTER\r\n");
-            setTaskTickCount(&task1, 1000U);
+            setTaskTickCount(&task1, 10U);
             break;
         case SYSEVT_TIMEOUT: {
 
-            setTaskTickCount(&task1, 1000U);
+            setTaskTickCount(&task1, 10U);
             Event event = Event_init(TASK1_TIMEOUT);
             Event_put(&event);
 
