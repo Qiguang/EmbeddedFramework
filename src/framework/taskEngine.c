@@ -1,7 +1,45 @@
 #include "framework.h"
+
+#undef DEFINE_TASK
+#define DEFINE_TASK(TASKNAME, INITSTATE) \
+    extern void* INITSTATE(Event* event);
+#include "../app/taskDefinition.h"
+
+#undef DEFINE_TASK
+#define DEFINE_TASK(TASKNAME, INITSTATE) {INITSTATE, 0},
+Task taskArray[] = {
+#include "../app/taskDefinition.h"
+};
+
 void dispatchEvent(Event* event);
 void initTasks();
-bool deliverEvent(Task* task, Event* event);
+bool deliverEvent(TaskName taskName, Event* event);
+
+Task* getTask(TaskName taskName)
+{
+    return &taskArray[taskName];
+}
+void subscribeEvent(TaskName taskName, EventToken eventToken)
+{
+    // TODO: assert eventToken < APPEVT_COUNT
+    taskArray[taskName].eventSubscribeTable[eventToken/8] |= (1 << eventToken%8);
+    
+}
+void unsubscribeEvent(TaskName taskName, EventToken eventToken)
+{
+    // TODO: assert eventToken < APPEVT_COUNT
+    taskArray[taskName].eventSubscribeTable[eventToken/8] &= ~(1 << eventToken%8);
+    
+}
+bool isEvtSubscribed(TaskName taskName, const Event* event)
+{
+    if (taskArray[taskName].eventSubscribeTable[Event_getType(event)/8] & (1<<Event_getType(event)%8)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 void TaskEngine_init()
 {
@@ -13,60 +51,49 @@ void TaskEngine_init()
 }
 void initTasks()
 {
-    int i;
-    Tasks* tasks = getTasks();
-    for (i = 0; i < tasks->count; ++i) {
-        Task* task = tasks->taskList[i];
-        subscribeEvent(task, SYSEVT_ENTER);
-        subscribeEvent(task, SYSEVT_QUIT);
+    TaskName i;
+    for (i = 0; i < TASK_AMOUNT; ++i) {
+        subscribeEvent(i, SYSEVT_ENTER);
     }
 }
 void TaskEngine_run()
 {
-   Event event;
-   if (Event_get(&event)) {
-      dispatchEvent(&event); 
-   } else {
-      Bsp_onIdle();
-   }
+    Event event;
+    Event_get(&event);
+    dispatchEvent(&event); 
 }
 void dispatchEvent(Event* event)
 {
-    int i;
-    Task* eventTarget = Event_getTarget(event);
-    if (eventTarget != NULL) {
+    TaskName eventTarget = Event_getTarget(event);
+    if (eventTarget != ALL_TASKS) {
         deliverEvent(eventTarget, event);
     } else {
-        Tasks* tasks = getTasks();
-        int i;
-        for (i = 0; i < tasks->count; ++i) {
-            Task* task = tasks->taskList[i];
-            deliverEvent(task, event);
+        TaskName i;
+        for (i = 0; i < TASK_AMOUNT; ++i) {
+            deliverEvent(i, event);
         }
     }
 }
 
-Task* currentTask = NULL;
-Task* TaskEngine_getCurrentTask()
+TaskName currentTask = TASK_AMOUNT;
+TaskName TaskEngine_getCurrentTask()
 {
     return currentTask;
 }
-bool deliverEvent(Task* task, Event* event)
+bool deliverEvent(TaskName taskName, Event* event)
 {
     bool rv = true;
-    if (isEvtSubscribed(task, event)) {
+    if (isEvtSubscribed(taskName, event)) {
         // TODO: assert state != null;
-        currentTask = task;
+        currentTask = taskName;
+        Task* task = getTask(taskName);
         StateProc nextState = (StateProc)task->state(event);
         if (nextState != task->state) {
             // state is changing
-            task->previousState = task->state;
             task->state = nextState;
 
             Event event;
-            event = Event_init(SYSEVT_QUIT);
-            task->previousState(&event);
-            event = Event_init(SYSEVT_ENTER);
+            event = Event_init(SYSEVT_ENTER, currentTask);
             task->state(&event);
         }
     } else {

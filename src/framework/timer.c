@@ -24,7 +24,7 @@ void refreshTimerList(uint32_t elapsedTime)
     while(*cursor) {
         (*cursor)->time -= elapsedTime;
         if ((*cursor)->time == 0) {
-            Event event = Event_initTarget(SYSEVT_TIMEOUT, (*cursor)->theTask);
+            Event event = Event_init(SYSEVT_TIMEOUT, (*cursor)->theTask);
             event.additionalData = (void*)*cursor;
             Event_put(&event);
 
@@ -50,10 +50,10 @@ void setTimer(TIMER* timer, uint32_t time)
 {
     timer->time = time;
     timer->theTask = TaskEngine_getCurrentTask();
+    subscribeEvent(timer->theTask, SYSEVT_TIMEOUT);
     uint32_t elapsedTime = Bsp_stopCountDown();
     refreshTimerList(elapsedTime);
     insert2TimerList(timer);
-    subscribeEvent(timer->theTask, SYSEVT_TIMEOUT);
     startCountDown();
 }
 void timeoutCallback(uint32_t elapsedTime)

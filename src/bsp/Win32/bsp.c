@@ -27,8 +27,12 @@ void Bsp_exitIdle()
 }
 void Bsp_startCountDown(uint32_t time)
 {
-    countDownTime = time;
-    SetEvent(countDownEvent);
+    if (time) {
+        countDownTime = time;
+        SetEvent(countDownEvent);
+    } else {
+        timeoutCallback(time);
+    }
 }
 uint32_t Bsp_stopCountDown()
 {

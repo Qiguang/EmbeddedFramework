@@ -11,9 +11,6 @@ void* Task1_init(Event* event)
         case SYSEVT_ENTER:
             printf("task1:init:event SYSEVT_ENTER\r\n");
             break;
-        case SYSEVT_QUIT:
-            printf("task1:init:event SYSEVT_QUIT\r\n");
-            break;
         default:
             printf("task1:init:unhandled event %d\r\n", Event_getType(event));
     }
@@ -30,9 +27,11 @@ void* proc(Event* event)
             /* clearTimer(&timer); */
             break;
         case SYSEVT_TIMEOUT: {
-            setTimer(&timer, 100U);
-            Event event = Event_init(TASK1_TIMEOUT);
-            Event_put(&event);
+            if (event->additionalData == (void*)&timer) {
+                setTimer(&timer, 100U);
+                Event event = Event_init(TASK1_TIMEOUT, ALL_TASKS);
+                Event_put(&event);
+            }
 
             printf("task1:proc:event SYSEVT_TIMEOUT\r\n");
             break;

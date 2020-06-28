@@ -5,27 +5,21 @@
  *
  *  events generated from this framework
  */
+#undef EVENT_DEF
+#define EVENT_DEF(EVENT_TOKEN)  EVENT_TOKEN,
+
 typedef enum { 
     SYSEVT_ENTER = 0, // enter the state
-    SYSEVT_QUIT,  // quit the state
     SYSEVT_TIMEOUT,
-    SYSEVT_COUNT
-} SysEventToken;
-#define EventToken uint8_t
+    SYSEVT_COUNT,
+#include "../app/eventDefinition.h"
+    APPEVT_END,
+    APPEVT_COUNT = APPEVT_END - SYSEVT_COUNT - 1
+} EventToken;
 typedef struct {
     EventToken token;
     void* additionalData;
-    struct Task_t* target;
+    enum TaskName target;
 } Event;
-
-#define EVENT_DEF_BEGIN()  \
-typedef enum {  \
-    APPEVT_START = SYSEVT_COUNT,
-#define EVENT_DEF_END()  \
-    APPEVT_COUNT  \
-} AppEventToken;
-
-#define EVENT_DEF(EVENT_TOKEN)  \
-EVENT_TOKEN,
 
 #endif /* ifndef EVENTS_H */

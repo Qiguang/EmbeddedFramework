@@ -1,10 +1,10 @@
 #ifndef TIMER_H
 #define TIMER_H
-#include "task.h"
-#include "types.h"
+#include "tasks.h"
+#include <stdint.h>
 typedef struct TIMER{
     uint32_t time;
-    Task* theTask;
+    TaskName theTask;
     struct TIMER* next;
 } TIMER;
 void Timer_init();

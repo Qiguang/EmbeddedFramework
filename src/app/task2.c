@@ -8,7 +8,7 @@ void* Task2_init(Event* event)
 {
     switch (Event_getType(event)) {
         case SYSEVT_ENTER:
-            subscribeEvent(&task2, TASK1_TIMEOUT);
+            subscribeEvent(task2, TASK1_TIMEOUT);
             return proc;
             break;
         default:

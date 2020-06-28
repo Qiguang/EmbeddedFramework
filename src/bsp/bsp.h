@@ -1,6 +1,6 @@
 #ifndef BSP_H
 #define BSP_H
-#include "types.h"
+#include <stdint.h>
 typedef void (*TimeoutCallback)(uint32_t elapsedTime);
 void Bsp_init();
 void Bsp_onIdle();
