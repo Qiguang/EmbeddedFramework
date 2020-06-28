@@ -2,4 +2,5 @@
 #define TASK_ENGINE_H
 #include "task.h"
 void TaskEngine_thread();
+Task* TaskEngine_getCurrentTask();
 #endif /* ifndef TASK_ENGINE_H */

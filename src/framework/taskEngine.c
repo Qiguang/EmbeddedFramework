@@ -5,11 +5,11 @@ bool deliverEvent(Task* task, Event* event);
 
 void TaskEngine_init()
 {
+    Bsp_init();
+
     Event_initQ();
     initTasks();
     Timer_init();
-    
-    Bsp_init();
 }
 void initTasks()
 {
@@ -45,11 +45,18 @@ void dispatchEvent(Event* event)
         }
     }
 }
+
+Task* currentTask = NULL;
+Task* TaskEngine_getCurrentTask()
+{
+    return currentTask;
+}
 bool deliverEvent(Task* task, Event* event)
 {
     bool rv = true;
     if (isEvtSubscribed(task, event)) {
         // TODO: assert state != null;
+        currentTask = task;
         StateProc nextState = (StateProc)task->state(event);
         if (nextState != task->state) {
             // state is changing

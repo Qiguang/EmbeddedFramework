@@ -1,41 +1,63 @@
 #include "framework.h"
-void tickCountDown(Task* task);
-static void timeTickCallback();
+static void timeoutCallback(uint32_t elapsedTime);
+TIMER* head = NULL;
+TIMER* current = NULL;
 void Timer_init()
 {
-
-    setTimeTickCallback(timeTickCallback);
-    
+    setTimeoutCallback(timeoutCallback);
 }
-void setTaskTickCount(Task* task, uint16_t tickCount)
+void insert2TimerList(TIMER* timer)
 {
-    subscribeEvent(task, SYSEVT_TIMEOUT);
     ENTER_CRITICAL_SESSION();
-    task->timeTickCount = tickCount;
+    TIMER** cursor = &head;
+    while(*cursor && (*cursor)->time < timer->time) {
+        cursor = &((*cursor)->next);
+    }
+    timer->next = *cursor;
+    *cursor = timer;
     EXIT_CRITICAL_SESSION();
 }
-void timeTickCallback()
+void refreshTimerList(uint32_t elapsedTime)
 {
-    Tasks* tasks = getTasks();
-    int i;
-    for (i = 0; i < tasks->count; ++i) {
-        Task* task = tasks->taskList[i];
-        tickCountDown(task);
-    }
-}
-void tickCountDown(Task* task)
-{
-    bool tickOut = false;
     ENTER_CRITICAL_SESSION();
-    if (task->timeTickCount) {
-        task->timeTickCount--;
-        if (!task->timeTickCount) {
-            tickOut = true;
+    TIMER** cursor = &head;
+    while(*cursor) {
+        (*cursor)->time -= elapsedTime;
+        if ((*cursor)->time == 0) {
+            Event event = Event_initTarget(SYSEVT_TIMEOUT, (*cursor)->theTask);
+            event.additionalData = (void*)*cursor;
+            Event_put(&event);
+
+            *cursor = (*cursor)->next;
+        }
+        if (*cursor) {
+            cursor = &((*cursor)->next);
+        } else {
+            break;
         }
     }
     EXIT_CRITICAL_SESSION();
-    if (tickOut) {
-        Event event = Event_initTarget(SYSEVT_TIMEOUT, task);
-        Event_put(&event);
+}
+void startCountDown()
+{
+    ENTER_CRITICAL_SESSION();
+    if (head) {
+        Bsp_startCountDown(head->time);
     }
+    EXIT_CRITICAL_SESSION();
+}
+void setTimer(TIMER* timer, uint32_t time)
+{
+    timer->time = time;
+    timer->theTask = TaskEngine_getCurrentTask();
+    uint32_t elapsedTime = Bsp_stopCountDown();
+    refreshTimerList(elapsedTime);
+    insert2TimerList(timer);
+    subscribeEvent(timer->theTask, SYSEVT_TIMEOUT);
+    startCountDown();
+}
+void timeoutCallback(uint32_t elapsedTime)
+{
+    refreshTimerList(elapsedTime);
+    startCountDown();
 }

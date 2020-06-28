@@ -14,7 +14,7 @@ typedef enum {
 #define EventToken uint8_t
 typedef struct {
     EventToken token;
-    uint32_t additionalData;
+    void* additionalData;
     struct Task_t* target;
 } Event;
 

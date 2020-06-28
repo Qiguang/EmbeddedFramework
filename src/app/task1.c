@@ -20,16 +20,17 @@ void* Task1_init(Event* event)
     return proc;
 }
 
+static TIMER timer;
 void* proc(Event* event)
 {
     switch (Event_getType(event)) {
         case SYSEVT_ENTER:
             printf("task1:proc:event SYSEVT_ENTER\r\n");
-            setTaskTickCount(&task1, 10U);
+            setTimer(&timer, 100U);
+            /* clearTimer(&timer); */
             break;
         case SYSEVT_TIMEOUT: {
-
-            setTaskTickCount(&task1, 10U);
+            setTimer(&timer, 100U);
             Event event = Event_init(TASK1_TIMEOUT);
             Event_put(&event);
 
