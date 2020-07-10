@@ -6,13 +6,13 @@ static void* proc(Event* event);
 
 void* Task2_init(Event* event)
 {
-    switch (Event_getType(event)) {
+    switch (eventType(event)) {
         case SYSEVT_ENTER:
             subscribeEvent(task2, TASK1_TIMEOUT);
             return proc;
             break;
         default:
-            printf("task2:init:unhandled event %d\r\n", Event_getType(event));
+            printf("task2:init:unhandled event %d\r\n", eventType(event));
             
     }
     return proc;
@@ -21,7 +21,7 @@ void* Task2_init(Event* event)
 void* proc(Event* event)
 {
 
-    switch (Event_getType(event)) {
+    switch (eventType(event)) {
         case SYSEVT_ENTER:
             printf("task2:proc:event SYSEVT_ENTER\r\n");
             return proc;
@@ -30,7 +30,7 @@ void* proc(Event* event)
             printf("task2:proc:event TASK1_TIMEOUT\r\n");
             break;
         default:
-            printf("task2:init:unhandled event %d\r\n", Event_getType(event));
+            printf("task2:init:unhandled event %d\r\n", eventType(event));
             
     }
     return proc;

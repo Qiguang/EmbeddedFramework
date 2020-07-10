@@ -1,7 +1,6 @@
 #include "framework.h"
 static void timeoutCallback(uint32_t elapsedTime);
 TIMER* head = NULL;
-TIMER* current = NULL;
 void Timer_init()
 {
     setTimeoutCallback(timeoutCallback);
@@ -24,9 +23,8 @@ void refreshTimerList(uint32_t elapsedTime)
     while(*cursor) {
         (*cursor)->time -= elapsedTime;
         if ((*cursor)->time == 0) {
-            Event event = Event_init(SYSEVT_TIMEOUT, (*cursor)->theTask);
-            event.additionalData = (void*)*cursor;
-            Event_put(&event);
+            Event event = createEvent(SYSEVT_TIMEOUT, (*cursor)->theTask, (void*)*cursor);
+            enqueueEvent(&event);
 
             *cursor = (*cursor)->next;
         }
@@ -49,7 +47,7 @@ void startCountDown()
 void setTimer(TIMER* timer, uint32_t time)
 {
     timer->time = time;
-    timer->theTask = TaskEngine_getCurrentTask();
+    timer->theTask = getCurrentTask();
     subscribeEvent(timer->theTask, SYSEVT_TIMEOUT);
     uint32_t elapsedTime = Bsp_stopCountDown();
     refreshTimerList(elapsedTime);

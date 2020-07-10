@@ -1,14 +1,17 @@
 #include "framework.h"
 
+#undef DEFINE_EVENT
+#define DEFINE_EVENT(EVENT_TOKEN)
+
 #undef DEFINE_TASK
 #define DEFINE_TASK(TASKNAME, INITSTATE) \
     extern void* INITSTATE(Event* event);
-#include "../app/taskDefinition.h"
+#include "../app/frameworkConfig.h"
 
 #undef DEFINE_TASK
 #define DEFINE_TASK(TASKNAME, INITSTATE) {INITSTATE, 0},
 Task taskArray[] = {
-#include "../app/taskDefinition.h"
+#include "../app/frameworkConfig.h"
 };
 
 void dispatchEvent(Event* event);
@@ -33,7 +36,7 @@ void unsubscribeEvent(TaskName taskName, EventToken eventToken)
 }
 bool isEvtSubscribed(TaskName taskName, const Event* event)
 {
-    if (taskArray[taskName].eventSubscribeTable[Event_getType(event)/8] & (1<<Event_getType(event)%8)) {
+    if (taskArray[taskName].eventSubscribeTable[eventType(event)/8] & (1<<eventType(event)%8)) {
         return true;
     } else {
         return false;
@@ -41,11 +44,11 @@ bool isEvtSubscribed(TaskName taskName, const Event* event)
 }
 
 
-void TaskEngine_init()
+void init()
 {
     Bsp_init();
 
-    Event_initQ();
+    EventQ_init();
     initTasks();
     Timer_init();
 }
@@ -56,17 +59,17 @@ void initTasks()
         subscribeEvent(i, SYSEVT_ENTER);
     }
 }
-void TaskEngine_run()
+void run()
 {
     Event event;
-    Event_get(&event);
+    dequeueEvent(&event);
     dispatchEvent(&event); 
 }
 void dispatchEvent(Event* event)
 {
-    TaskName eventTarget = Event_getTarget(event);
-    if (eventTarget != ALL_TASKS) {
-        deliverEvent(eventTarget, event);
+    TaskName target = eventTarget(event);
+    if (target != ALL_TASKS) {
+        deliverEvent(target, event);
     } else {
         TaskName i;
         for (i = 0; i < TASK_AMOUNT; ++i) {
@@ -76,7 +79,7 @@ void dispatchEvent(Event* event)
 }
 
 TaskName currentTask = TASK_AMOUNT;
-TaskName TaskEngine_getCurrentTask()
+TaskName getCurrentTask()
 {
     return currentTask;
 }
@@ -93,7 +96,7 @@ bool deliverEvent(TaskName taskName, Event* event)
             task->state = nextState;
 
             Event event;
-            event = Event_init(SYSEVT_ENTER, currentTask);
+            event = createEvent(SYSEVT_ENTER, currentTask, NULL);
             task->state(&event);
         }
     } else {
@@ -101,11 +104,14 @@ bool deliverEvent(TaskName taskName, Event* event)
     }
     return rv;
 }
-void TaskEngine_thread()
+void taskEngineRun()
 {
-    TaskEngine_init();
-    do {
-        TaskEngine_run();
-    } while (1);
+    init();
+    // on startup, generate the first event for all tasks
+    Event event = createEvent(SYSEVT_ENTER, ALL_TASKS, NULL);
+    enqueueEvent(&event);
 
+    do {
+        run();
+    } while (1);
 }

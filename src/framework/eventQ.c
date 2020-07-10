@@ -2,28 +2,63 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#include "../utils/queue.h"
 #include "events.h"
-#include "frameworkConfig.h"
 #include "tasks.h"
 #include "../bsp/bsp.h"
+#include "../utils/log.h"
+#include <string.h>
 
-static Event eventQBuffer[EVENT_Q_SIZE];
+typedef struct {
+    Event qBuf[EVENT_Q_SIZE];
+    uint8_t head;
+    uint8_t tail;
+    uint8_t elementCount;
+    uint8_t qSize;
+}Queue;
+
 static Queue eventQ;
-Event Event_init(EventToken eventToken, TaskName target);
 
-void Event_initQ()
+static bool enqueue(const void* element)
 {
-    eventQ = Q_init(eventQBuffer, sizeof(eventQBuffer)/sizeof(eventQBuffer[0]), sizeof(eventQBuffer[0]));
-    Event event = Event_init(SYSEVT_ENTER, ALL_TASKS);
-    Q_putElement(&eventQ, &event);
+    bool rv = true;
+    bool Q_FULL = (eventQ.elementCount == eventQ.qSize);
+    if (Q_FULL) {
+       log_err("event queue is full, enqueue failed");
+       rv = false;
+    } else {
+        memcpy(&(eventQ.qBuf[eventQ.head]), element, sizeof(eventQ.qBuf[0]));
+        eventQ.elementCount++;
+        eventQ.head = (eventQ.head+1)%eventQ.qSize;
+    }
+    return rv;
 }
-bool Event_get(Event* eventBuf)
+static bool dequeue(void* elementBuf)
+{
+    bool rv = true;
+    bool Q_EMPTY = (eventQ.elementCount == 0);
+    if (Q_EMPTY) {
+        rv = false;
+    } else {
+        memcpy(elementBuf, &(eventQ.qBuf[eventQ.tail]), sizeof(eventQ.qBuf[0]));
+        eventQ.elementCount--;
+        eventQ.tail = (eventQ.tail+1)%eventQ.qSize;
+    }
+    return rv;
+}
+
+void EventQ_init()
+{
+    eventQ.head = 0;
+    eventQ.tail = 0;
+    eventQ.elementCount = 0;
+    eventQ.qSize = EVENT_Q_SIZE;
+}
+bool dequeueEvent(Event* eventBuf)
 {
     bool rv = false;
     while (!rv) {
         ENTER_CRITICAL_SESSION();
-        rv = Q_getElement(&eventQ, eventBuf);
+        rv = dequeue(eventBuf);
         EXIT_CRITICAL_SESSION();
         if (!rv) {
             Bsp_onIdle();
@@ -32,29 +67,34 @@ bool Event_get(Event* eventBuf)
     
     return rv;
 }
-bool Event_put(const Event* event) 
+bool enqueueEvent(const Event* event) 
 {
     ENTER_CRITICAL_SESSION();
-    bool rv = Q_putElement(&eventQ, event);
+    bool rv = enqueue(event);
     EXIT_CRITICAL_SESSION();
     Bsp_exitIdle();  // now there is at least one event in the Q, so we need exit IDLE mode
     
     return rv;
 }
-Event Event_init(EventToken eventToken, TaskName target)
+Event createEvent(EventToken eventToken, TaskName target, void* data)
 {
     Event event;
     event.token = eventToken;
     event.target = target;
+    event.data = data;
     return event;
     
 }
-uint8_t Event_getType(const Event* event)
+uint8_t eventType(const Event* event)
 {
     return event->token;
 }
-TaskName Event_getTarget(const Event* event)
+TaskName eventTarget(const Event* event)
 {
     return event->target;
+}
+void* eventData(const Event* event)
+{
+    return event->data;
 }
 

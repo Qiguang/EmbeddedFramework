@@ -1,5 +1,0 @@
-#ifndef FRAMEWORKCONFIG_H
-#define FRAMEWORKCONFIG_H
-#define EVENT_Q_SIZE (10)
-#endif /* ifndef FRAMEWORKCONFIG_H */
-

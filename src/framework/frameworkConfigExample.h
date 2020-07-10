@@ -1,3 +1,5 @@
+#ifndef FRAMEWORKCONFIG_H
+#define FRAMEWORKCONFIG_H
 // USAGE HINTS
 // DEFINE_TASK(task_name, the_entry_function)
 // use DEFINE_TASK to define a task, it require a task name, after defining, this name can be used in other functions which require a task name.
@@ -11,5 +13,10 @@ DEFINE_TASK(task2, Task2_init)
 // to the files you created for using the framework APIs.
 // that's all you should do. Then,
 // enjoy the framework.
-/* DEFINE_TASK(window_task, window_init) */
-//DEFINE_TASK(task2, Task2_init)
+DEFINE_EVENT(TASK1_TIMEOUT)
+DEFINE_EVENT(EVT_CONTINUE)
+
+
+#define EVENT_Q_SIZE (10)
+#endif /* ifndef FRAMEWORKCONFIG_H */
+
